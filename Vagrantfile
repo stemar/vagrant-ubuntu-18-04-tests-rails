@@ -1,11 +1,11 @@
-projects_path = ENV["PROJECTS_PATH"] || "Web"
-port_80 = ENV["PORT_80"] || 8000
-port_3306 = ENV["PORT_3306"] || 33060
+projects_dir = ENV["PROJECTS_DIR"] || "Code"
+port_80 = ENV["PORT_80"] || 8002
+port_3306 = ENV["PORT_3306"] || 33062
 adminer_version = ENV["ADMINER_VERSION"] || "4.7.3"
 
 Vagrant.require_version ">= 2.0.0"
 Vagrant.configure("2") do |config|
-  config.vm.define "ubuntu-18-04"
+  config.vm.define "ubuntu-18-04-tests-rails"
   config.vm.box = "bento/ubuntu-18.04" # 64GB HDD
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "3072" # 3GB RAM
@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
   # vagrant@ubuntu-18-04
   config.vm.hostname = "ubuntu-18-04"
   # Synchronize projects and vm directories
-  config.vm.synced_folder "~/#{projects_path}", "/home/vagrant/#{projects_path}", owner: "vagrant", group: "vagrant"
+  config.vm.synced_folder "~/#{projects_dir}", "/home/vagrant/#{projects_dir}", owner: "vagrant", group: "vagrant"
   config.vm.synced_folder "~/vm", "/home/vagrant/vm", owner: "vagrant", group: "vagrant"
   # Disable default dir sync
   config.vm.synced_folder ".", "/vagrant", disabled: true
@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
   # Provision bash script
   config.vm.provision :shell, path: "ubuntu-18-04.sh", env: {
     "CONFIG_PATH" => "/home/vagrant/vm/ubuntu-18-04-tests-rails/config",
-    "PROJECTS_PATH" => projects_path,
+    "PROJECTS_DIR" => projects_dir,
     "PORT_80" => port_80,
     "ADMINER_VERSION" => adminer_version
   }
