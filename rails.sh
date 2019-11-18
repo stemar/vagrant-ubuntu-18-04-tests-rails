@@ -45,3 +45,13 @@ echo '==> Installing npm, node.js & Grunt'
 
 apt-get -qq install npm
 npm list grunt-cli || npm install -g grunt-cli
+
+echo '==> Versions:'
+
+echo $(rbenv -v)
+echo $(ruby -v)
+echo gem $(gem -v)
+echo $(bundler -v)
+echo $(rails -v)
+echo node.js $(nodejs -v)
+echo npm $(npm -v)
