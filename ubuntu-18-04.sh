@@ -185,10 +185,6 @@ gem install rails -N -q --no-force
 bundle install
 rbenv rehash
 
-echo '==> Installing Python 3'
-
-apt-get -qq install python3-venv python3-pip
-
 echo '==> Installing npm, node.js & Grunt'
 
 apt-get -qq install npm
