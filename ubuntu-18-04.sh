@@ -83,8 +83,8 @@ echo '==> Starting MariaDB'
 service mysql restart
 
 # Include additional bash scripts
-. tests.sh
-. rails.sh
+. ./tests.sh
+. ./rails.sh
 
 echo '==> Cleaning apt cache'
 
