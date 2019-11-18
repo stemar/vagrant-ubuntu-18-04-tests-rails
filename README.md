@@ -12,7 +12,7 @@ In host terminal:
 
 ```bash
 mkdir -p ~/vm && cd $_
-git clone https://github.com/stemar/vagrant-ubuntu-18-04.git ubuntu-18-04
+git clone https://github.com/stemar/vagrant-ubuntu-18-04-tests-rails.git ubuntu-18-04-tests-rails
 cd ~/vm/ubuntu-18-04
 vagrant up --provision
 vagrant ssh
@@ -91,7 +91,7 @@ In host terminal:
 
 ```bash
 mkdir -p ~/vm && cd $_
-git clone https://github.com/stemar/vagrant-ubuntu-18-04.git ubuntu-18-04
+git clone https://github.com/stemar/vagrant-ubuntu-18-04-tests-rails.git ubuntu-18-04-tests-rails
 ```
 
 > You can have more than one vagrant dirtree under the `~/vm` directory.  
