@@ -139,9 +139,9 @@ see [PHP configuration settings](http://php.net/manual/en/configuration.changes.
 You can prepend the `vagrant up` command with these environment variables or
 you can edit `Vagrantfile`.
 
-### PROJECTS_PATH
+### PROJECTS_DIR
 
-Add the environment variable `PROJECTS_PATH` with your own path name under your home directory.
+Add the environment variable `PROJECTS_DIR` with your own path name under your home directory.
 Name it the same name to reduce confusion.
 Ex.: if the host machine has `~/projects` a.k.a. `/Users/stemar/projects`,
 the guest machine will have `~/projects`, a.k.a. `/home/vagrant/projects`.
@@ -150,7 +150,7 @@ In host terminal:
 
 ```bash
 cd ~/vm/ubuntu-18-04
-PROJECTS_PATH=projects vagrant up --provision
+PROJECTS_DIR=projects vagrant up --provision
 ```
 
 ### PORT_80
@@ -210,7 +210,7 @@ Halt the box and redo up
 
 ```bash
 vagrant halt
-PROJECTS_PATH=projects vagrant up --provision
+PROJECTS_DIR=projects vagrant up --provision
 ```
 
 ### If something goes wrong
@@ -222,7 +222,7 @@ vagrant halt -f
 OR
 vagrant destroy -f
 AND
-PROJECTS_PATH=projects vagrant up --provision
+PROJECTS_DIR=projects vagrant up --provision
 ```
 
 ## Log in ubuntu-18-04
