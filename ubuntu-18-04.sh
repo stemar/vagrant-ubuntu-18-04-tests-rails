@@ -6,10 +6,8 @@ cat /etc/timezone
 echo '==> Installing Linux tools'
 
 apt-get -qq update
-apt-get -qq install bash-completion
-apt-get -qq install curl tree zip unzip pv whois
-echo 'alias ll="ls -lAFh"
-' | tee /home/vagrant/.bash_aliases > /dev/null
+apt-get -qq install bash-completion curl tree zip unzip pv whois
+cp $CONFIG_PATH/bash_aliases /home/vagrant/.bash_aliases
 chown vagrant:vagrant /home/vagrant/.bash_aliases
 
 echo '==> Installing Git'
@@ -210,6 +208,8 @@ echo $(git --version)
 echo $(apache2 -v | head -n1)
 echo $(mysql -V)
 echo $(php -v | head -n1)
+echo $(python --version)
+echo $(python3 --version)
 echo Adminer $ADMINER_VERSION
 echo $(composer -V)
 echo $(codecept -V)
