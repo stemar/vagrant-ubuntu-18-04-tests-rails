@@ -82,113 +82,9 @@ echo '==> Starting MariaDB'
 
 service mysql restart
 
-echo '==> Installing Composer (globally)'
-
-if [ ! -f /usr/local/bin/composer ]; then
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --quiet
-fi
-
-echo '==> Installing Codeception (globally)'
-
-if [ ! -f /usr/local/bin/codecept ]; then
-    curl -LsS https://codeception.com/codecept.phar -o /usr/local/bin/codecept
-    chmod a+x /usr/local/bin/codecept
-fi
-
-echo '==> Installing Java JRE'
-
-apt-get -qq install default-jdk
-apt-get -qq install --fix-broken
-
-echo '==> Installing Google Chrome'
-
-if ! grep -qxF 'deb http://dl.google.com/linux/chrome/deb/ stable main' /etc/apt/sources.list; then
-    echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' | tee -a /etc/apt/sources.list > /dev/null
-    wget -qO- --no-hsts "https://dl-ssl.google.com/linux/linux_signing_key.pub" | apt-key add -
-    apt-get -qq update
-    apt-get -qq install google-chrome-stable
-fi
-
-echo '==> Installing Google XVFB'
-
-apt-get -qq install xvfb
-apt-get -qq install --fix-broken
-
-echo '==> Installing chromedriver'
-
-CHROMEDRIVER_VERSION=2.38
-if [ ! -f /usr/local/bin/chromedriver ]; then
-    curl -LsS https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip -o /usr/local/bin/chromedriver.zip
-    unzip -qq /usr/local/bin/chromedriver.zip -d /usr/local/bin
-    chown vagrant:vagrant /usr/local/bin/chromedriver
-    rm /usr/local/bin/chromedriver.zip
-fi
-
-echo '==> Installing geckodriver'
-
-GECKODRIVER_VERSION=v0.20.1
-if [ ! -f /usr/local/bin/geckodriver ]; then
-    curl -LsS https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz -o /usr/local/bin/geckodriver.tar.gz
-    tar -xzf /usr/local/bin/geckodriver.tar.gz -C /usr/local/bin
-    chown vagrant:vagrant /usr/local/bin/geckodriver
-    rm /usr/local/bin/geckodriver.tar.gz
-fi
-
-echo '==> Installing Selenium'
-
-SELENIUM_VERSION=3.12
-if [ ! -f /usr/local/bin/selenium-server-standalone.jar ]; then
-    curl -LsS https://selenium-release.storage.googleapis.com/$SELENIUM_VERSION/selenium-server-standalone-$SELENIUM_VERSION.0.jar -o /usr/local/bin/selenium-server-standalone.jar
-    chown vagrant:vagrant /usr/local/bin/selenium-server-standalone.jar
-fi
-
-echo '==> Installing rbenv'
-
-apt-get -qq install autoconf bison build-essential \
-    libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev
-if [ ! -d /home/vagrant/.rbenv ]; then
-    git clone -q https://github.com/rbenv/rbenv.git /home/vagrant/.rbenv
-fi
-if ! grep -q 'RBENV_ROOT=' /home/vagrant/.bashrc; then
-   echo '
-# Make rbenv load automatically
-export RBENV_ROOT="${HOME}/.rbenv"
-export PATH="${RBENV_ROOT}/bin:${PATH}"
-eval "$(rbenv init -)"
-' | tee -a /home/vagrant/.bashrc > /dev/null
-fi
-export RBENV_ROOT="/home/vagrant/.rbenv"
-if ! grep -q "$RBENV_ROOT" <<< "$PATH"; then
-    export PATH="${RBENV_ROOT}/bin:${PATH}"
-fi
-eval "$(rbenv init -)"
-if [ ! -d /home/vagrant/.rbenv/plugins/ruby-build ]; then
-    git clone -q https://github.com/rbenv/ruby-build.git /home/vagrant/.rbenv/plugins/ruby-build
-fi
-chown -R vagrant:vagrant /home/vagrant/.rbenv
-
-echo '==> Installing Ruby'
-
-LATEST_RUBY_VERSION=$(rbenv install -l | grep -v - | tail -1)
-rbenv install -s $LATEST_RUBY_VERSION
-rbenv global $LATEST_RUBY_VERSION
-echo "gem: --no-document" | tee /home/vagrant/.gemrc > /dev/null
-chown -R vagrant:vagrant /home/vagrant/.gemrc
-
-echo '==> Installing Bundler'
-
-gem install bundler -N -q --no-force
-
-echo '==> Installing Rails'
-
-gem install rails -N -q --no-force
-bundle install
-rbenv rehash
-
-echo '==> Installing npm, node.js & Grunt'
-
-apt-get -qq install npm
-npm list grunt-cli || npm install -g grunt-cli
+# Include additional bash scripts
+. tests.sh
+. rails.sh
 
 echo '==> Cleaning apt cache'
 
@@ -207,11 +103,13 @@ echo $(php -v | head -n1)
 echo $(python --version)
 echo $(python3 --version)
 echo Adminer $ADMINER_VERSION
+
 echo $(composer -V)
 echo $(codecept -V)
 echo geckodriver $GECKODRIVER_VERSION
 echo chromedriver $CHROMEDRIVER_VERSION
 echo selenium-server-standalone $SELENIUM_VERSION
+
 echo $(rbenv -v)
 echo $(ruby -v)
 echo gem $(gem -v)
