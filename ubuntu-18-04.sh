@@ -82,10 +82,6 @@ echo '==> Starting MariaDB'
 
 service mysql restart
 
-# Include additional bash scripts
-. ./tests.sh
-. ./rails.sh
-
 echo '==> Cleaning apt cache'
 
 apt-get -qq autoclean
