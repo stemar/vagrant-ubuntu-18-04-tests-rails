@@ -28,11 +28,21 @@ Vagrant.configure("2") do |config|
   # Copy SSH keys and Git config
   config.vm.provision :file, source: "~/.ssh", destination: "$HOME/.ssh"
   config.vm.provision :file, source: "~/.gitconfig", destination: "$HOME/.gitconfig"
-  # Provision bash script
+  # Provision bash scripts
   config.vm.provision :shell, path: "ubuntu-18-04.sh", env: {
     "CONFIG_PATH" => "/home/vagrant/vm/ubuntu-18-04-tests-rails/config",
     "PROJECTS_DIR" => projects_dir,
     "PORT_80" => port_80,
     "ADMINER_VERSION" => adminer_version
+  }
+  config.vm.provision :shell, path: "tests.sh", env: {
+    "CONFIG_PATH" => "/home/vagrant/vm/ubuntu-18-04-tests-rails/config",
+    "PROJECTS_DIR" => projects_dir,
+    "PORT_80" => port_80
+  }
+  config.vm.provision :shell, path: "rails.sh", env: {
+    "CONFIG_PATH" => "/home/vagrant/vm/ubuntu-18-04-tests-rails/config",
+    "PROJECTS_DIR" => projects_dir,
+    "PORT_80" => port_80
   }
 end
