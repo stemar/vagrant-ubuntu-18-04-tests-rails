@@ -57,3 +57,11 @@ if [ ! -f /usr/local/bin/selenium-server-standalone.jar ]; then
     curl -LsS https://selenium-release.storage.googleapis.com/$SELENIUM_VERSION/selenium-server-standalone-$SELENIUM_VERSION.0.jar -o /usr/local/bin/selenium-server-standalone.jar
     chown vagrant:vagrant /usr/local/bin/selenium-server-standalone.jar
 fi
+
+echo '==> Versions:'
+
+echo $(composer -V)
+echo $(codecept -V)
+echo geckodriver $GECKODRIVER_VERSION
+echo chromedriver $CHROMEDRIVER_VERSION
+echo selenium-server-standalone $SELENIUM_VERSION
