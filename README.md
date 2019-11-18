@@ -24,7 +24,7 @@ vagrant ssh
 - Leave code and version control files physically outside the VM while virtually accessing them inside the VM.
 - Use any GUI tool outside the VM to access data inside the VM.
     - IDEs, browsers, database administration applications, Git clients
-- Use `http://localhost:8000` in a browser outside the VM to access Apache inside the VM.
+- Use `http://localhost:8002` in a browser outside the VM to access Apache inside the VM.
 - Use the same SSH keys inside and outside VM.
 - Use the same Git config inside and outside VM.
 - Have `Vagrantfile` and its provision file be located anywhere on your host machine, independently of your projects location.
@@ -292,7 +292,7 @@ HTTP/1.1 200 OK
 In host browser:
 
 ```input
-http://localhost:8000
+http://localhost:8002
 ```
 
 You see the "Apache2 Ubuntu Default Page".
@@ -304,7 +304,7 @@ Ex.: Replace `example.com` with your domain and the port number with your custom
 In host browser:
 
 ```input
-http://example.com.localhost:8000
+http://example.com.localhost:8002
 ```
 
 You see the home page.
@@ -327,7 +327,7 @@ HTTP/1.1 200 OK
 In host browser:
 
 ```input
-http://localhost:8000/adminer.php
+http://localhost:8002/adminer.php
 ```
 
 - Username: `root`
