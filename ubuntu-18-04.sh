@@ -35,12 +35,6 @@ apt-get -qq install php7.2 libapache2-mod-php7.2 libphp7.2-embed \
     php7.2-mbstring php7.2-mysql php7.2-mysqlnd php7.2-opcache php7.2-pgsql php7.2-pspell php7.2-readline \
     php7.2-soap php7.2-sqlite3 php7.2-tidy php7.2-xdebug php7.2-xml php7.2-xmlrpc php7.2-zip
 
-echo '==> Installing Composer (globally)'
-
-if [ ! -f /usr/local/bin/composer ]; then
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --quiet
-fi
-
 echo '==> Installing Adminer'
 
 if [ ! -d /usr/share/adminer ]; then
@@ -87,6 +81,12 @@ service apache2 restart
 echo '==> Starting MariaDB'
 
 service mysql restart
+
+echo '==> Installing Composer (globally)'
+
+if [ ! -f /usr/local/bin/composer ]; then
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --quiet
+fi
 
 echo '==> Installing Codeception (globally)'
 
