@@ -13,7 +13,7 @@ In host terminal:
 ```bash
 mkdir -p ~/vm && cd $_
 git clone https://github.com/stemar/vagrant-ubuntu-18-04-tests-rails.git ubuntu-18-04-tests-rails
-cd ~/vm/ubuntu-18-04
+cd ~/vm/ubuntu-18-04-tests-rails
 vagrant up --provision
 vagrant ssh
 ```
@@ -106,7 +106,7 @@ but if I separate my VMs by LAMP stack in a dirtree, I can run, maintain and tro
 - I can have LAMP-specific `config` files to help the provision file.
 - `.vagrant` is created independently within each VM directory.
 - I can open separate tabs in my terminal, `cd` into separate VM dirtrees and `vagrant up`/`vagrant halt`
-  without having to write the machine name: `vagrant up ubuntu-18-04`/`vagrant halt ubuntu-18-04`
+  without having to write the machine name: `vagrant up ubuntu-18-04-tests-rails`/`vagrant halt ubuntu-18-04-tests-rails`
 - `vagrant global-status` still works as intended to see all VMs on the host machine.
 - I change the HTTP and MySQL ports in `Vagrantfile` to avoid collisions and Vagrant errors at provisioning.
 
@@ -129,7 +129,7 @@ We don't want to edit `php.ini` directly but we want to add a development-relate
 We have to do it with `.htaccess` at the `/var/www` level;
 see [PHP configuration settings](http://php.net/manual/en/configuration.changes.php)
 
-## Provision ubuntu-18-04
+## Provision ubuntu-18-04-tests-rails
 
 > You will see many red line warnings from `apt-get` during provisioning but let the script finish,
 > most of them are not fatal errors.
@@ -147,7 +147,7 @@ the guest machine will have `~/projects`, a.k.a. `/home/vagrant/projects`.
 In host terminal:
 
 ```bash
-cd ~/vm/ubuntu-18-04
+cd ~/vm/ubuntu-18-04-tests-rails
 PROJECTS_DIR=projects vagrant up --provision
 ```
 
@@ -159,7 +159,7 @@ Ex.: redirect port 80 to port 8080.
 In host terminal:
 
 ```bash
-cd ~/vm/ubuntu-18-04
+cd ~/vm/ubuntu-18-04-tests-rails
 PORT_80=8080 vagrant up --provision
 ```
 
@@ -171,7 +171,7 @@ Ex.: redirect port 3306 to port 33061.
 In host terminal:
 
 ```bash
-cd ~/vm/ubuntu-18-04
+cd ~/vm/ubuntu-18-04-tests-rails
 PORT_80=8080 PORT_3306=33061 vagrant up --provision
 ```
 
@@ -211,7 +211,7 @@ AND
 PROJECTS_DIR=projects vagrant up --provision
 ```
 
-## Log in ubuntu-18-04
+## Log in ubuntu-18-04-tests-rails
 
 In host terminal:
 
@@ -219,7 +219,7 @@ In host terminal:
 vagrant ssh
 ```
 
-### Prompt inside ubuntu-18-04
+### Prompt inside ubuntu-18-04-tests-rails
 
 In guest terminal:
 
