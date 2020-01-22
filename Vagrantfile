@@ -7,11 +7,12 @@ Vagrant.configure("2") do |config|
   config.vm.define "ubuntu-18-04-tests-rails"
   config.vm.box = "bento/ubuntu-18.04" # 64GB HDD
   config.vm.provider "virtualbox" do |vb|
+    vb.name = "ubuntu-18-04-tests-rails"
     vb.memory = "3072" # 3GB RAM
     vb.cpus = 1
   end
   # vagrant@ubuntu-18-04
-  config.vm.hostname = "ubuntu-18-04"
+  config.vm.hostname = "ubuntu-18-04-tests-rails"
   # Synchronize projects and vm directories
   config.vm.synced_folder "~/#{projects_dir}", "/home/vagrant/#{projects_dir}", owner: "vagrant", group: "vagrant"
   config.vm.synced_folder "~/vm", "/home/vagrant/vm", owner: "vagrant", group: "vagrant"
